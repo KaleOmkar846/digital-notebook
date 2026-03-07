@@ -2,9 +2,13 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: var(--bg-primary);
   min-width: 0;
   overflow: hidden;
+}
+
+.preview-expanded {
+  flex: 1 1 100%;
 }
 
 .preview-header {
@@ -12,36 +16,38 @@
   justify-content: space-between;
   align-items: center;
   padding: 12px 16px;
-  background-color: #f5f5f5;
-  border-bottom: 1px solid #e0e0e0;
+  background-color: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .preview-title {
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
   font-size: 14px;
 }
 
 .preview-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .download-btn {
-  padding: 6px 12px;
-  background-color: #28a745;
+  padding: 4px 10px;
+  background-color: var(--download-btn-bg);
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
+  transition:
+    background-color 0.2s,
+    transform 0.1s;
 }
 
 .download-btn:hover {
-  background-color: #218838;
+  background-color: var(--download-btn-hover);
 }
 
 .download-btn:active {
@@ -49,160 +55,298 @@
 }
 
 .download-btn:disabled {
-  background-color: #94d3a2;
+  background-color: var(--download-btn-disabled);
   cursor: not-allowed;
 }
 
-.preview-hint {
-  font-size: 12px;
-  color: #888;
+[data-theme="dark"] .download-btn {
+  color: #1e1e2e;
+}
+
+[data-theme="dark"] .download-btn:disabled {
+  color: #7a7a8e;
 }
 
 .preview-content {
   flex: 1;
-  padding: 24px;
+  padding: 32px 36px;
   overflow-y: auto;
   line-height: 1.8;
+  max-width: 100%;
 }
 
+/* Placeholder */
 .preview-placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
-  color: #aaa;
-  font-style: italic;
+  color: var(--text-muted);
 }
 
-/* Markdown Styles */
+.placeholder-content {
+  text-align: center;
+  max-width: 360px;
+}
+
+.placeholder-content h2 {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text-muted);
+}
+
+.placeholder-content > p {
+  font-size: 13px;
+  color: var(--text-placeholder);
+  margin-bottom: 24px;
+}
+
+.placeholder-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  text-align: left;
+}
+
+.placeholder-feature {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  background-color: var(--bg-secondary);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+.placeholder-feature strong {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.placeholder-feature span {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ─── Markdown Styles ─── */
+
 .preview-content h1 {
-  font-size: 2em;
+  font-size: 1.9em;
   font-weight: 700;
-  margin: 0 0 16px 0;
-  padding-bottom: 8px;
-  border-bottom: 2px solid #2563eb;
-  color: #2563eb;
+  margin: 0 0 20px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--heading-h1);
+  color: var(--heading-h1);
+  letter-spacing: -0.01em;
 }
 
 .preview-content h2 {
-  font-size: 1.5em;
+  font-size: 1.45em;
   font-weight: 600;
-  margin: 24px 0 12px 0;
-  color: #7c3aed;
+  margin: 32px 0 14px 0;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--heading-h2);
 }
 
 .preview-content h3 {
-  font-size: 1.25em;
+  font-size: 1.2em;
   font-weight: 600;
-  margin: 20px 0 10px 0;
-  color: #059669;
+  margin: 24px 0 10px 0;
+  color: var(--heading-h3);
+}
+
+.preview-content h4 {
+  font-size: 1.05em;
+  font-weight: 600;
+  margin: 20px 0 8px 0;
+  color: var(--text-primary);
 }
 
 .preview-content p {
   margin: 0 0 16px 0;
-  color: #444;
+  color: var(--text-secondary);
+  font-size: 15px;
 }
 
 .preview-content ul,
 .preview-content ol {
   margin: 0 0 16px 0;
-  padding-left: 24px;
+  padding-left: 26px;
 }
 
 .preview-content li {
   margin-bottom: 6px;
-  color: #444;
+  color: var(--text-secondary);
+  font-size: 15px;
 }
 
+.preview-content li > ul,
+.preview-content li > ol {
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+/* Blockquote — used for important notes / definitions */
 .preview-content blockquote {
-  margin: 16px 0;
-  padding: 12px 20px;
-  border-left: 4px solid #4a90d9;
-  background-color: #f8fafc;
-  color: #555;
-  font-style: italic;
+  margin: 20px 0;
+  padding: 14px 20px;
+  border-left: 4px solid var(--accent-color);
+  background-color: var(--blockquote-bg);
+  color: var(--blockquote-text);
+  border-radius: 0 6px 6px 0;
+  font-size: 14px;
+}
+
+.preview-content blockquote p {
+  color: inherit;
+  margin-bottom: 8px;
+}
+
+.preview-content blockquote p:last-child {
+  margin-bottom: 0;
 }
 
 /* Inline Code */
 .inline-code {
-  background-color: #f0f0f0;
-  padding: 2px 6px;
+  background-color: var(--code-inline-bg);
+  padding: 2px 7px;
   border-radius: 4px;
   font-family: "Fira Code", "Consolas", "Monaco", monospace;
-  font-size: 0.9em;
-  color: #d63384;
+  font-size: 0.85em;
+  color: var(--code-inline-color);
+  border: 1px solid var(--border-color);
 }
 
-/* Code Block */
+/* Code Block Wrapper */
+.code-block-wrapper {
+  margin: 18px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px var(--shadow-heavy);
+}
+
+.code-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 14px;
+  background-color: #2d2d3d;
+  border-bottom: 1px solid #3a3a4a;
+}
+
+.code-block-lang {
+  font-family: "Fira Code", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: #9a9ab0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 .code-block {
-  border-radius: 8px !important;
-  margin: 16px 0 !important;
-  font-size: 14px !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 0 !important;
+  margin: 0 !important;
+  font-size: 13.5px !important;
+  line-height: 1.6 !important;
+}
+
+/* Task List */
+.task-list-item {
+  list-style: none;
+  margin-left: -26px;
+  padding-left: 6px;
+}
+
+.task-checkbox {
+  margin-right: 8px;
+  transform: scale(1.15);
+  accent-color: var(--accent-color);
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
 }
 
 /* Table Styles */
 .table-wrapper {
   overflow-x: auto;
-  margin: 16px 0;
+  margin: 18px 0;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
 }
 
 .preview-content table {
   width: 100%;
   border-collapse: collapse;
   font-size: 14px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
 }
 
 .preview-content thead {
-  background-color: #4a90d9;
+  background-color: var(--table-header-bg);
   color: white;
 }
 
 .preview-content th {
-  padding: 12px 16px;
+  padding: 10px 16px;
   text-align: left;
   font-weight: 600;
+  font-size: 13px;
 }
 
 .preview-content td {
-  padding: 10px 16px;
-  border-bottom: 1px solid #e0e0e0;
+  padding: 9px 16px;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 13.5px;
 }
 
 .preview-content tbody tr:nth-child(even) {
-  background-color: #f8f9fa;
+  background-color: var(--table-even-row);
 }
 
 .preview-content tbody tr:hover {
-  background-color: #e8f4fd;
+  background-color: var(--table-hover-row);
 }
 
 /* Links */
 .preview-content a {
-  color: #4a90d9;
+  color: var(--link-color);
   text-decoration: none;
+  border-bottom: 1px dashed var(--link-color);
+  padding-bottom: 1px;
 }
 
 .preview-content a:hover {
-  text-decoration: underline;
+  text-decoration: none;
+  border-bottom-style: solid;
 }
 
 /* Horizontal Rule */
 .preview-content hr {
   border: none;
-  border-top: 1px solid #e0e0e0;
-  margin: 24px 0;
+  border-top: 1px solid var(--border-color);
+  margin: 28px 0;
 }
 
 /* Strong and Emphasis */
 .preview-content strong {
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--strong-color);
 }
 
 .preview-content em {
   font-style: italic;
+}
+
+/* Images */
+.preview-content img {
+  max-width: 100%;
+  border-radius: 6px;
+  margin: 12px 0;
+}
+
+/* Definition-like term highlighting (bold at start of list item) */
+.preview-content li > strong:first-child {
+  color: var(--heading-h3);
 }
