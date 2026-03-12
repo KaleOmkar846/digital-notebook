@@ -230,6 +230,7 @@
 
 .preview-content li {
   margin-bottom: 5px;
+  padding-left: 4px;
   color: var(--text-secondary);
   font-size: 15px;
   line-height: 1.7;
@@ -411,6 +412,7 @@
 
 .preview-content em {
   font-style: italic;
+  font-family: "Open Sans", sans-serif;
   color: var(--text-secondary);
 }
 
@@ -419,4 +421,136 @@
   max-width: 100%;
   border-radius: 6px;
   margin: 12px 0;
+}
+
+/* ═══════════════════════════════════════════
+   PDF / PAGE-BREAK RULES
+   html2pdf respects these via mode: ["css"]
+   ═══════════════════════════════════════════ */
+
+/* Avoid splitting these across pages */
+.preview-content .code-block-wrapper,
+.preview-content blockquote,
+.preview-content .table-wrapper,
+.preview-content img {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.preview-content p,
+.preview-content li {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* Keep headings attached to content below */
+.preview-content h1,
+.preview-content h2,
+.preview-content h3,
+.preview-content h4,
+.preview-content h5,
+.preview-content h6 {
+  break-after: avoid;
+  page-break-after: avoid;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* ═══════════════════════════════════════════
+   PDF RENDERING OVERRIDES
+   Applied via .pdf-rendering class on the
+   cloned element during html2pdf capture.
+   ═══════════════════════════════════════════ */
+
+/* Root container */
+.pdf-rendering {
+  padding: 0 !important;
+  box-sizing: border-box;
+  overflow: hidden !important;
+  overflow-wrap: break-word !important;
+  word-wrap: break-word !important;
+}
+
+/* All children: constrain width and enable wrapping */
+.pdf-rendering * {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-wrap: break-word !important;
+  word-wrap: break-word !important;
+}
+
+/* Lists: keep markers visible, tight spacing */
+.pdf-rendering ul,
+.pdf-rendering ol {
+  overflow: visible !important;
+  padding-left: 24px !important;
+}
+
+.pdf-rendering li {
+  overflow: visible !important;
+  padding-left: 4px !important;
+}
+
+/* Inline code: allow wrapping but keep inline flow */
+.pdf-rendering .inline-code {
+  word-break: break-word;
+  white-space: normal;
+  display: inline;
+}
+
+/* Code blocks: wrap long lines, remove decorations */
+.pdf-rendering .code-block-wrapper {
+  overflow: hidden !important;
+  box-shadow: none !important;
+  border-radius: 0;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+.pdf-rendering .code-block-header {
+  border-radius: 0;
+}
+
+.pdf-rendering .code-block {
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  overflow: hidden !important;
+}
+
+.pdf-rendering pre,
+.pdf-rendering code {
+  white-space: pre-wrap !important;
+  overflow-wrap: break-word !important;
+  word-break: break-word !important;
+}
+
+/* Code blocks inside list items: constrain to parent */
+.pdf-rendering li .code-block-wrapper {
+  max-width: 100% !important;
+  width: calc(100% - 4px) !important;
+}
+
+.pdf-rendering li p {
+  overflow: hidden !important;
+}
+
+/* Tables and blockquotes: clean edges */
+.pdf-rendering .table-wrapper {
+  overflow: hidden !important;
+  border-radius: 0;
+}
+
+.pdf-rendering blockquote {
+  border-radius: 0;
+}
+
+/* Emphasis and strong: ensure italic/bold render in PDF */
+.pdf-rendering em {
+  font-style: italic !important;
+  font-family: "Open Sans", sans-serif !important;
+}
+
+.pdf-rendering strong {
+  font-weight: 700 !important;
 }
