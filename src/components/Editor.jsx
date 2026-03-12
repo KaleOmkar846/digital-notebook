@@ -266,14 +266,37 @@ function Editor({
         const start = textarea.selectionStart;
         const end = textarea.selectionEnd;
         const currentContent = contentRef.current;
-        const newText =
-          currentContent.substring(0, start) +
-          "  " +
-          currentContent.substring(end);
-        onChange(newText);
-        setTimeout(() => {
-          textarea.setSelectionRange(start + 2, start + 2);
-        }, 0);
+
+        // Find the start of the current line
+        const lineStart = currentContent.lastIndexOf("\n", start - 1) + 1;
+        const lineText = currentContent.substring(lineStart, end);
+
+        if (e.shiftKey) {
+          // Shift+Tab: remove up to 2 spaces from line start
+          const match = lineText.match(/^( {1,2})/);
+          if (match) {
+            const removed = match[1].length;
+            const newText =
+              currentContent.substring(0, lineStart) +
+              lineText.substring(removed) +
+              currentContent.substring(end);
+            onChange(newText);
+            setTimeout(() => {
+              const newPos = Math.max(lineStart, start - removed);
+              textarea.setSelectionRange(newPos, newPos);
+            }, 0);
+          }
+        } else {
+          // Tab: insert 2 spaces at the beginning of the line
+          const newText =
+            currentContent.substring(0, lineStart) +
+            "  " +
+            currentContent.substring(lineStart);
+          onChange(newText);
+          setTimeout(() => {
+            textarea.setSelectionRange(start + 2, start + 2);
+          }, 0);
+        }
       }
     };
 

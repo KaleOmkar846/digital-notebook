@@ -67,15 +67,21 @@
   color: #7a7a8e;
 }
 
+/* ─── Preview Content Area ─── */
 .preview-content {
   flex: 1;
-  padding: 32px 36px;
+  padding: 32px 40px;
   overflow-y: auto;
-  line-height: 1.8;
+  overflow-x: hidden;
+  line-height: 1.75;
   max-width: 100%;
+  font-size: 15px;
+  color: var(--text-secondary);
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
-/* Placeholder */
+/* ─── Placeholder ─── */
 .preview-placeholder {
   display: flex;
   align-items: center;
@@ -130,74 +136,136 @@
   color: var(--text-muted);
 }
 
-/* ─── Markdown Styles ─── */
+/* ═══════════════════════════════════════════
+   MARKDOWN RENDERED CONTENT STYLES
+   ═══════════════════════════════════════════ */
 
+/* ─── Headings ─── */
 .preview-content h1 {
-  font-size: 1.9em;
+  font-size: 1.85em;
   font-weight: 700;
   margin: 0 0 20px 0;
   padding-bottom: 10px;
-  border-bottom: 2px solid var(--heading-h1);
+  border-bottom: 2.5px solid var(--heading-h1);
   color: var(--heading-h1);
   letter-spacing: -0.01em;
+  line-height: 1.3;
 }
 
 .preview-content h2 {
   font-size: 1.45em;
-  font-weight: 600;
+  font-weight: 700;
   margin: 32px 0 14px 0;
   padding-bottom: 6px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1.5px solid var(--heading-h2);
   color: var(--heading-h2);
+  line-height: 1.35;
 }
 
 .preview-content h3 {
   font-size: 1.2em;
-  font-weight: 600;
-  margin: 24px 0 10px 0;
+  font-weight: 700;
+  margin: 26px 0 10px 0;
   color: var(--heading-h3);
+  line-height: 1.4;
 }
 
 .preview-content h4 {
   font-size: 1.05em;
-  font-weight: 600;
-  margin: 20px 0 8px 0;
-  color: var(--text-primary);
+  font-weight: 700;
+  margin: 22px 0 8px 0;
+  color: var(--heading-h4);
+  line-height: 1.4;
 }
 
+.preview-content h5 {
+  font-size: 1em;
+  font-weight: 600;
+  margin: 16px 0 6px 0;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.preview-content h6 {
+  font-size: 0.9em;
+  font-weight: 600;
+  margin: 14px 0 6px 0;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  line-height: 1.4;
+}
+
+/* Bold inside headings inherits heading color */
+.preview-content h1 strong,
+.preview-content h2 strong,
+.preview-content h3 strong,
+.preview-content h4 strong {
+  color: inherit;
+  font-weight: inherit;
+}
+
+/* First heading should have no top margin */
+.preview-content > h1:first-child,
+.preview-content > h2:first-child,
+.preview-content > h3:first-child,
+.preview-content > h4:first-child {
+  margin-top: 0;
+}
+
+/* ─── Paragraphs ─── */
 .preview-content p {
-  margin: 0 0 16px 0;
+  margin: 0 0 14px 0;
   color: var(--text-secondary);
   font-size: 15px;
+  line-height: 1.75;
 }
 
+/* ─── Lists ─── */
 .preview-content ul,
 .preview-content ol {
-  margin: 0 0 16px 0;
-  padding-left: 26px;
+  margin: 0 0 14px 0;
+  padding-left: 24px;
 }
 
 .preview-content li {
-  margin-bottom: 6px;
+  margin-bottom: 5px;
   color: var(--text-secondary);
   font-size: 15px;
+  line-height: 1.7;
 }
 
+/* Nested lists */
 .preview-content li > ul,
 .preview-content li > ol {
-  margin-top: 6px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+/* Nested list items slightly smaller spacing */
+.preview-content li li {
+  margin-bottom: 3px;
+}
+
+/* Paragraphs inside list items */
+.preview-content li > p {
   margin-bottom: 6px;
 }
 
-/* Blockquote — used for important notes / definitions */
+.preview-content li > p:last-child {
+  margin-bottom: 0;
+}
+
+/* ─── Blockquote ─── */
 .preview-content blockquote {
-  margin: 20px 0;
-  padding: 14px 20px;
+  margin: 18px 0;
+  padding: 12px 20px;
   border-left: 4px solid var(--accent-color);
   background-color: var(--blockquote-bg);
   color: var(--blockquote-text);
   border-radius: 0 6px 6px 0;
-  font-size: 14px;
+  font-size: 14.5px;
+  font-style: italic;
 }
 
 .preview-content blockquote p {
@@ -209,20 +277,21 @@
   margin-bottom: 0;
 }
 
-/* Inline Code */
+/* ─── Inline Code ─── */
 .inline-code {
   background-color: var(--code-inline-bg);
-  padding: 2px 7px;
+  padding: 2px 6px;
   border-radius: 4px;
   font-family: "Fira Code", "Consolas", "Monaco", monospace;
   font-size: 0.85em;
   color: var(--code-inline-color);
   border: 1px solid var(--border-color);
+  word-break: break-word;
 }
 
-/* Code Block Wrapper */
+/* ─── Code Blocks ─── */
 .code-block-wrapper {
-  margin: 18px 0;
+  margin: 16px 0;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 8px var(--shadow-heavy);
@@ -253,11 +322,16 @@
   line-height: 1.6 !important;
 }
 
-/* Task List */
+/* Code blocks inside list items — less margin */
+.preview-content li .code-block-wrapper {
+  margin: 10px 0;
+}
+
+/* ─── Task List ─── */
 .task-list-item {
   list-style: none;
-  margin-left: -26px;
-  padding-left: 6px;
+  margin-left: -24px;
+  padding-left: 4px;
 }
 
 .task-checkbox {
@@ -269,7 +343,7 @@
   top: -1px;
 }
 
-/* Table Styles */
+/* ─── Tables ─── */
 .table-wrapper {
   overflow-x: auto;
   margin: 18px 0;
@@ -309,7 +383,7 @@
   background-color: var(--table-hover-row);
 }
 
-/* Links */
+/* ─── Links ─── */
 .preview-content a {
   color: var(--link-color);
   text-decoration: none;
@@ -322,31 +396,27 @@
   border-bottom-style: solid;
 }
 
-/* Horizontal Rule */
+/* ─── Horizontal Rule ─── */
 .preview-content hr {
   border: none;
-  border-top: 1px solid var(--border-color);
+  border-top: 1.5px solid var(--border-color);
   margin: 28px 0;
 }
 
-/* Strong and Emphasis */
+/* ─── Strong and Emphasis ─── */
 .preview-content strong {
   font-weight: 700;
-  color: var(--strong-color);
+  color: var(--text-primary);
 }
 
 .preview-content em {
   font-style: italic;
+  color: var(--text-secondary);
 }
 
-/* Images */
+/* ─── Images ─── */
 .preview-content img {
   max-width: 100%;
   border-radius: 6px;
   margin: 12px 0;
-}
-
-/* Definition-like term highlighting (bold at start of list item) */
-.preview-content li > strong:first-child {
-  color: var(--heading-h3);
 }

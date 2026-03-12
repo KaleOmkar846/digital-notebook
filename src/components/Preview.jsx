@@ -79,25 +79,32 @@ function Preview({ content, expanded, onToggleExpand, style }) {
             remarkPlugins={[remarkGfm, remarkMath]}
             rehypePlugins={[rehypeKatex]}
             components={{
+              pre({ children }) {
+                return <>{children}</>;
+              },
               code({ className, children, ...props }) {
                 const match = /language-(\w+)/.exec(className || "");
                 const codeString = String(children).replace(/\n$/, "");
-                return match ? (
-                  <div className="code-block-wrapper">
-                    <div className="code-block-header">
-                      <span className="code-block-lang">{match[1]}</span>
+                if (match || codeString.includes("\n")) {
+                  const lang = match ? match[1] : "text";
+                  return (
+                    <div className="code-block-wrapper">
+                      <div className="code-block-header">
+                        <span className="code-block-lang">{lang}</span>
+                      </div>
+                      <SyntaxHighlighter
+                        style={oneDark}
+                        language={lang}
+                        PreTag="div"
+                        className="code-block"
+                        {...props}
+                      >
+                        {codeString}
+                      </SyntaxHighlighter>
                     </div>
-                    <SyntaxHighlighter
-                      style={oneDark}
-                      language={match[1]}
-                      PreTag="div"
-                      className="code-block"
-                      {...props}
-                    >
-                      {codeString}
-                    </SyntaxHighlighter>
-                  </div>
-                ) : (
+                  );
+                }
+                return (
                   <code className={`inline-code ${className || ""}`} {...props}>
                     {children}
                   </code>
